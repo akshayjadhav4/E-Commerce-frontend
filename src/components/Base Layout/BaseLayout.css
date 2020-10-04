@@ -1,0 +1,18 @@
+.baseLayout__container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.baseLayout__title {
+  padding: 5px;
+}
+.baseLayout__content {
+  padding: 5px;
+}
+.baseLayout__footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 5px;
+  font-weight: 500;
+  color: grey;
+}

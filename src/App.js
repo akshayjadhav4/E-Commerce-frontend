@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
+import BaseLayout from "./components/Base Layout/BaseLayout";
 
 function App() {
   return (
     <div className="app">
-      <h1>AKSHAY</h1>
+      <BaseLayout />
     </div>
   );
 }
