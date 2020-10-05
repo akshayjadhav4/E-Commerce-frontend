@@ -1,0 +1,28 @@
+.navigation__Logo {
+  font-family: "Pacifico", cursive;
+  font-size: 20px;
+}
+
+.navigation__link {
+  text-decoration: none;
+  color: #626060;
+}
+
+.navigation__link--active {
+  color: #f46d4f;
+}
+
+.navigation__cartOption {
+  display: flex;
+  align-items: center;
+}
+
+.navigation__cartCount {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.MuiAppBar-colorPrimary {
+  background-color: white !important;
+  color: black !important;
+}
