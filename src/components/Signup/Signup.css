@@ -1,0 +1,14 @@
+.signup {
+  display: grid;
+  place-items: center;
+}
+
+.MuiButton-containedPrimary {
+  color: #fff;
+  background-color: #f46d4f !important;
+}
+
+.signup__link {
+  text-decoration: none;
+  color: #636363;
+}
