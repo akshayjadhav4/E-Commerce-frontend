@@ -1,11 +1,14 @@
 import React from "react";
 import "./App.css";
-import BaseLayout from "./components/Base Layout/BaseLayout";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
     <div className="app">
-      <BaseLayout />
+      <Router>
+        <Route path="/" exact component={Home} />
+      </Router>
     </div>
   );
 }
