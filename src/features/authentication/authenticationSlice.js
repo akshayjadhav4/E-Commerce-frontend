@@ -56,6 +56,38 @@ export const signup = (user) => (dispatch) => {
   dispatch(setLoading(false));
 };
 
+export const signin = (user) => (dispatch) => {
+  dispatch(setLoading(true));
+  fetch(`${API}/signin`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+        dispatch(setUser(null));
+      } else {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("jwt", JSON.stringify(data));
+          dispatch(setUser(data.user));
+          dispatch(setToken(data.token));
+          dispatch(clearError());
+        }
+      }
+    })
+    .catch((error) => {
+      dispatch(setError(error));
+    });
+  dispatch(setLoading(false));
+};
+
 export const isAuthenticated = () => (dispatch) => {
   if (typeof window == "undefined") {
     return false;
