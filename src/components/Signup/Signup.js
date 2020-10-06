@@ -3,37 +3,16 @@ import "./Signup.css";
 import BaseLayout from "../Base Layout/BaseLayout";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button } from "@material-ui/core";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { CssTextField } from "../CssTextField/CssTextField";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
     width: "50ch",
   },
 }));
-
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "#f46d4f",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#f46d4f",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#c4c4c4",
-      },
-      "&:hover fieldset": {
-        borderColor: "black",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#f46d4f",
-      },
-    },
-  },
-})(TextField);
 
 const initialValues = {
   firstName: "",
