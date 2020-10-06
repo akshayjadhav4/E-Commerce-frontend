@@ -61,7 +61,7 @@ function Signup() {
   // to check user is already logged in
   useEffect(() => {
     dispatch(isAuthenticated());
-  }, []);
+  }, [dispatch]);
 
   // redirect user based on role
   const performRedirect = () => {
