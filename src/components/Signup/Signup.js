@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Signup.css";
 import BaseLayout from "../Base Layout/BaseLayout";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { CssTextField } from "../CssTextField/CssTextField";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  signup,
+  isAuthenticated,
+  selectAuthentication,
+} from "../../features/authentication/authenticationSlice";
+import { selectError } from "../../features/error/errorSlice";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -37,18 +45,41 @@ const validationSchema = Yup.object({
 
 function Signup() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  // getting authentication state from store
+  const { user, isLoading } = useSelector(selectAuthentication);
+  // getting error from store
+  const error = useSelector(selectError);
 
-  const onSubmit = (values, { setSubmitting }) => {
-    setSubmitting(true);
-    console.log(values);
-    setTimeout(() => {
-      setSubmitting(false);
-    }, 3000);
+  const onSubmit = (values, { resetForm }) => {
+    // onsubmit take all values and dispath signup
+    dispatch(signup(values));
+    resetForm();
+  };
+
+  // to check user is already logged in
+  useEffect(() => {
+    dispatch(isAuthenticated());
+  }, []);
+
+  // redirect user based on role
+  const performRedirect = () => {
+    if (user) {
+      if (user && user.role === 1) {
+        history.push("/admin/dashboard");
+      } else {
+        history.push("/user/dashboard");
+      }
+    }
   };
 
   return (
     <BaseLayout title="Create an account">
       <div className="signup">
+        {/* Alert to show error */}
+        {error && <Alert severity="error">{error}</Alert>}
+        <br />
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -147,7 +178,7 @@ function Signup() {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isLoading}
                 >
                   Submit
                 </Button>
@@ -161,6 +192,7 @@ function Signup() {
           </Link>
         </Button>
       </div>
+      {performRedirect()}
     </BaseLayout>
   );
 }

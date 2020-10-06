@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import errorReducer from "../features/error/errorSlice";
+import authenticationReducer from "../features/authentication/authenticationSlice";
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    error: errorReducer,
+    authentication: authenticationReducer,
   },
 });
