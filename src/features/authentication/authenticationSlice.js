@@ -14,15 +14,13 @@ export const authenticationSlice = createSlice({
       state.isLoading = action.payload;
     },
     setUser: (state, action) => {
-      state.user = action.payload;
-    },
-    setToken: (state, action) => {
-      state.token = action.payload;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
     },
   },
 });
 
-export const { setLoading, setUser, setToken } = authenticationSlice.actions;
+export const { setLoading, setUser } = authenticationSlice.actions;
 
 export const signup = (user) => async (dispatch) => {
   dispatch(setLoading(true));
@@ -40,12 +38,10 @@ export const signup = (user) => async (dispatch) => {
     .then((data) => {
       if (data.error) {
         dispatch(setError(data.error));
-        dispatch(setUser(null));
       } else {
         if (typeof window !== "undefined") {
           localStorage.setItem("jwt", JSON.stringify(data));
-          dispatch(setUser(data.user));
-          dispatch(setToken(data.token));
+          dispatch(setUser(data));
           dispatch(clearError());
         }
       }
@@ -72,12 +68,10 @@ export const signin = (user) => async (dispatch) => {
     .then((data) => {
       if (data.error) {
         dispatch(setError(data.error));
-        dispatch(setUser(null));
       } else {
         if (typeof window !== "undefined") {
           localStorage.setItem("jwt", JSON.stringify(data));
-          dispatch(setUser(data.user));
-          dispatch(setToken(data.token));
+          dispatch(setUser(data));
           dispatch(clearError());
         }
       }
@@ -94,8 +88,7 @@ export const isAuthenticated = () => (dispatch) => {
   }
   if (localStorage.getItem("jwt")) {
     const data = JSON.parse(localStorage.getItem("jwt"));
-    dispatch(setUser(data.user));
-    dispatch(setToken(data.token));
+    dispatch(setUser(data));
   } else {
     return false;
   }
