@@ -24,9 +24,9 @@ export const authenticationSlice = createSlice({
 
 export const { setLoading, setUser, setToken } = authenticationSlice.actions;
 
-export const signup = (user) => (dispatch) => {
+export const signup = (user) => async (dispatch) => {
   dispatch(setLoading(true));
-  fetch(`${API}/signup`, {
+  await fetch(`${API}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -56,9 +56,9 @@ export const signup = (user) => (dispatch) => {
   dispatch(setLoading(false));
 };
 
-export const signin = (user) => (dispatch) => {
+export const signin = (user) => async (dispatch) => {
   dispatch(setLoading(true));
-  fetch(`${API}/signin`, {
+  await fetch(`${API}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
