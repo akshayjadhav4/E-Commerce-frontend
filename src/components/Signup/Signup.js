@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { CssTextField } from "../CssTextField/CssTextField";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -46,7 +46,7 @@ const validationSchema = Yup.object({
 function Signup() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+
   // getting authentication state from store
   const { user, isLoading } = useSelector(selectAuthentication);
   // getting error from store
@@ -67,9 +67,9 @@ function Signup() {
   const performRedirect = () => {
     if (user) {
       if (user && user.role === 1) {
-        history.push("/admin/dashboard");
+        return <Redirect to="/admin/dashboard" />;
       } else {
-        history.push("/user/dashboard");
+        return <Redirect to="/user/dashboard" />;
       }
     }
   };
