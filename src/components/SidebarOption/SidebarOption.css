@@ -1,0 +1,10 @@
+.sidebarOption__link {
+  text-decoration: none;
+  color: #626060;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.sidebarOption__link--active {
+  color: #f46d4f;
+}
