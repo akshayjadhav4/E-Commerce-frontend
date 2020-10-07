@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Signin.css";
 import BaseLayout from "../Base Layout/BaseLayout";
 import { Formik } from "formik";
@@ -11,7 +11,6 @@ import { CssTextField } from "../CssTextField/CssTextField";
 import { useSelector, useDispatch } from "react-redux";
 import {
   signin,
-  isAuthenticated,
   selectAuthentication,
 } from "../../features/authentication/authenticationSlice";
 import { selectError } from "../../features/error/errorSlice";
@@ -48,11 +47,6 @@ function Signin() {
     dispatch(signin(values));
     resetForm();
   };
-
-  // to check user is already logged in
-  useEffect(() => {
-    dispatch(isAuthenticated());
-  }, [dispatch]);
 
   // redirect user based on role
   const performRedirect = () => {
