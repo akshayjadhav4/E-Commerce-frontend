@@ -16,3 +16,7 @@
   flex: 0.7;
   border: 1px solid #3f3f3f;
 }
+
+.admindashboard__info {
+  padding: 20px;
+}

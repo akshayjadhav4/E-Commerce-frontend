@@ -1,38 +1,33 @@
 import React from "react";
 import BaseLayout from "../Base Layout/BaseLayout";
 import "./AdminDashboard.css";
-import { List } from "@material-ui/core";
-import SidebarOption from "../SidebarOption/SidebarOption";
-
+import AdminSidebar from "../AdminSidebar/AdminSidebar";
+import { useHistory } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { selectAuthentication } from "../../features/authentication/authenticationSlice";
 function AdminDashboard() {
+  const history = useHistory();
+
+  // getting authentication state from store
+  const { user } = useSelector(selectAuthentication);
   return (
     <BaseLayout title="Admin Dashboard">
       <div className="adminDashboard">
         <div className="adminDashboard__left">
-          <List>
-            <SidebarOption title="Dashboard" path="/admin/dashboard" />
-            <SidebarOption
-              title="Create Product"
-              path="/admin/create/prpduct"
-            />
-            <SidebarOption
-              title="Manage Prodcuts"
-              path="/admin/manage/prodcuts"
-            />
-
-            <SidebarOption
-              title="Create Category"
-              path="/admin/create/category"
-            />
-            <SidebarOption
-              title="Manage Category"
-              path="/admin/manage/category"
-            />
-            <SidebarOption title="Manage Orders" path="/admin/manage/orders" />
-          </List>
+          <AdminSidebar />
         </div>
         <div className="adminDashboard__right">
-          <h1>Panal</h1>
+          {history.location.pathname === "/admin/dashboard" && (
+            <div className="admindashboard__info">
+              <Typography variant="h4">Welcome Admin</Typography>
+              <hr />
+              <Typography>
+                Name : {user.firstName} {user.lastName}
+              </Typography>
+              <Typography>Email : {user.email}</Typography>
+            </div>
+          )}
         </div>
       </div>
     </BaseLayout>
