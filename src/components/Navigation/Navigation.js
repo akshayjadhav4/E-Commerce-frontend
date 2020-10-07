@@ -13,8 +13,11 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
-import { useDispatch } from "react-redux";
-import { signOut } from "../../features/authentication/authenticationSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  signOut,
+  selectAuthentication,
+} from "../../features/authentication/authenticationSlice";
 const useStyles = makeStyles({
   list: {
     width: 200,
@@ -36,6 +39,9 @@ function Navigation({ history }) {
   const dispatch = useDispatch();
   const [drawer, setDrawer] = useState(false);
   const [activateDrawer, setActivateDrawer] = useState(false);
+
+  // getting authentication state from store
+  const { user } = useSelector(selectAuthentication);
 
   //   calculating screen size
   useLayoutEffect(() => {
@@ -104,58 +110,97 @@ function Navigation({ history }) {
             }}
           >
             <List className={classes.list}>
-              <ListItem key={0} button divider>
-                <Link
-                  to="/user/dashboard"
-                  className={`navigation__link ${
-                    history.location.pathname === "/user/dashboard" &&
-                    "navigation__link--active"
-                  }`}
-                >
-                  <Typography variant="subtitle1" className={classes.padding}>
-                    My Account
-                  </Typography>
-                </Link>
-              </ListItem>
-              <ListItem key={1} button divider>
-                <Link
-                  to="/admin/dashboard"
-                  className={`navigation__link ${
-                    history.location.pathname === "/admin/dashboard" &&
-                    "navigation__link--active"
-                  }`}
-                >
-                  <Typography variant="subtitle1" className={classes.padding}>
-                    Dashboard
-                  </Typography>
-                </Link>
-              </ListItem>
-              <ListItem key={2} button divider>
-                <Link
-                  to="/signup"
-                  className={`navigation__link ${
-                    history.location.pathname === "/signup" &&
-                    "navigation__link--active"
-                  }`}
-                >
-                  <Typography variant="subtitle1" className={classes.padding}>
-                    Sign Up
-                  </Typography>
-                </Link>
-              </ListItem>
-              <ListItem key={3} button divider>
-                <Link
-                  to="/signin"
-                  className={`navigation__link ${
-                    history.location.pathname === "/signin" &&
-                    "navigation__link--active"
-                  }`}
-                >
-                  <Typography variant="subtitle1" className={classes.padding}>
-                    Sign In
-                  </Typography>
-                </Link>
-              </ListItem>
+              {user ? (
+                <>
+                  {user?.role === 0 && (
+                    <ListItem key={0} button divider>
+                      <Link
+                        to="/user/dashboard"
+                        className={`navigation__link ${
+                          history.location.pathname === "/user/dashboard" &&
+                          "navigation__link--active"
+                        }`}
+                      >
+                        <Typography
+                          variant="subtitle1"
+                          className={classes.padding}
+                        >
+                          My Account
+                        </Typography>
+                      </Link>
+                    </ListItem>
+                  )}
+                  {user?.role === 1 && (
+                    <ListItem key={1} button divider>
+                      <Link
+                        to="/admin/dashboard"
+                        className={`navigation__link ${
+                          history.location.pathname === "/admin/dashboard" &&
+                          "navigation__link--active"
+                        }`}
+                      >
+                        <Typography
+                          variant="subtitle1"
+                          className={classes.padding}
+                        >
+                          Dashboard
+                        </Typography>
+                      </Link>
+                    </ListItem>
+                  )}
+
+                  <ListItem key={5} button divider>
+                    <Link to="/" className="navigation__link">
+                      <Typography
+                        variant="subtitle1"
+                        className={classes.padding}
+                        onClick={() => {
+                          dispatch(signOut());
+                          history.push("/");
+                        }}
+                      >
+                        Logout
+                      </Typography>
+                    </Link>
+                  </ListItem>
+                </>
+              ) : (
+                <>
+                  <ListItem key={2} button divider>
+                    <Link
+                      to="/signup"
+                      className={`navigation__link ${
+                        history.location.pathname === "/signup" &&
+                        "navigation__link--active"
+                      }`}
+                    >
+                      <Typography
+                        variant="subtitle1"
+                        className={classes.padding}
+                      >
+                        Sign Up
+                      </Typography>
+                    </Link>
+                  </ListItem>
+                  <ListItem key={3} button divider>
+                    <Link
+                      to="/signin"
+                      className={`navigation__link ${
+                        history.location.pathname === "/signin" &&
+                        "navigation__link--active"
+                      }`}
+                    >
+                      <Typography
+                        variant="subtitle1"
+                        className={classes.padding}
+                      >
+                        Sign In
+                      </Typography>
+                    </Link>
+                  </ListItem>
+                </>
+              )}
+
               <ListItem key={4} button divider>
                 <Link
                   to="/cart"
@@ -170,20 +215,6 @@ function Navigation({ history }) {
                       0
                     </Typography>
                   </div>
-                </Link>
-              </ListItem>
-              <ListItem key={5} button divider>
-                <Link to="/" className="navigation__link">
-                  <Typography
-                    variant="subtitle1"
-                    className={classes.padding}
-                    onClick={() => {
-                      dispatch(signOut());
-                      history.push("/");
-                    }}
-                  >
-                    Logout
-                  </Typography>
                 </Link>
               </ListItem>
             </List>
@@ -208,54 +239,76 @@ function Navigation({ history }) {
             </Link>
           </Typography>
 
-          <Link
-            to="/user/dashboard"
-            className={`navigation__link ${
-              history.location.pathname === "/user/dashboard" &&
-              "navigation__link--active"
-            }`}
-          >
-            <Typography variant="subtitle1" className={classes.padding}>
-              My Account
-            </Typography>
-          </Link>
+          {user ? (
+            <>
+              {user?.role === 0 && (
+                <Link
+                  to="/user/dashboard"
+                  className={`navigation__link ${
+                    history.location.pathname === "/user/dashboard" &&
+                    "navigation__link--active"
+                  }`}
+                >
+                  <Typography variant="subtitle1" className={classes.padding}>
+                    My Account
+                  </Typography>
+                </Link>
+              )}
 
-          <Link
-            to="/admin/dashboard"
-            className={`navigation__link ${
-              history.location.pathname === "/admin/dashboard" &&
-              "navigation__link--active"
-            }`}
-          >
-            <Typography variant="subtitle1" className={classes.padding}>
-              Dashboard
-            </Typography>
-          </Link>
+              {user?.role === 1 && (
+                <Link
+                  to="/admin/dashboard"
+                  className={`navigation__link ${
+                    history.location.pathname === "/admin/dashboard" &&
+                    "navigation__link--active"
+                  }`}
+                >
+                  <Typography variant="subtitle1" className={classes.padding}>
+                    Dashboard
+                  </Typography>
+                </Link>
+              )}
 
-          <Link
-            to="/signup"
-            className={`navigation__link ${
-              history.location.pathname === "/signup" &&
-              "navigation__link--active"
-            }`}
-          >
-            <Typography variant="subtitle1" className={classes.padding}>
-              Sign Up
-            </Typography>
-          </Link>
+              <Link to="/" className="navigation__link">
+                <Typography
+                  variant="subtitle1"
+                  className={classes.padding}
+                  onClick={() => {
+                    dispatch(signOut());
+                    history.push("/");
+                  }}
+                >
+                  Logout
+                </Typography>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/signup"
+                className={`navigation__link ${
+                  history.location.pathname === "/signup" &&
+                  "navigation__link--active"
+                }`}
+              >
+                <Typography variant="subtitle1" className={classes.padding}>
+                  Sign Up
+                </Typography>
+              </Link>
 
-          <Link
-            to="/signin"
-            className={`navigation__link ${
-              history.location.pathname === "/signin" &&
-              "navigation__link--active"
-            }`}
-          >
-            <Typography variant="subtitle1" className={classes.padding}>
-              Sign In
-            </Typography>
-          </Link>
-
+              <Link
+                to="/signin"
+                className={`navigation__link ${
+                  history.location.pathname === "/signin" &&
+                  "navigation__link--active"
+                }`}
+              >
+                <Typography variant="subtitle1" className={classes.padding}>
+                  Sign In
+                </Typography>
+              </Link>
+            </>
+          )}
           <Link
             to="/cart"
             className={`navigation__link ${
@@ -269,19 +322,6 @@ function Navigation({ history }) {
                 0
               </Typography>
             </div>
-          </Link>
-
-          <Link to="/" className="navigation__link">
-            <Typography
-              variant="subtitle1"
-              className={classes.padding}
-              onClick={() => {
-                dispatch(signOut());
-                history.push("/");
-              }}
-            >
-              Logout
-            </Typography>
           </Link>
         </Toolbar>
       </AppBar>
