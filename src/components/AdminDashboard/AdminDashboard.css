@@ -1,0 +1,18 @@
+.adminDashboard {
+  display: flex;
+  justify-content: space-between;
+  height: 90vh;
+}
+
+.adminDashboard__left {
+  flex: 0.3;
+  min-width: 250px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #3f3f3f;
+}
+
+.adminDashboard__right {
+  flex: 0.7;
+  border: 1px solid #3f3f3f;
+}
