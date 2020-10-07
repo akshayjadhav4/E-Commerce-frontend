@@ -13,7 +13,8 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
-
+import { useDispatch } from "react-redux";
+import { signOut } from "../../features/authentication/authenticationSlice";
 const useStyles = makeStyles({
   list: {
     width: 200,
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
 
 function Navigation({ history }) {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const [drawer, setDrawer] = useState(false);
   const [activateDrawer, setActivateDrawer] = useState(false);
 
@@ -173,7 +174,14 @@ function Navigation({ history }) {
               </ListItem>
               <ListItem key={5} button divider>
                 <Link to="/" className="navigation__link">
-                  <Typography variant="subtitle1" className={classes.padding}>
+                  <Typography
+                    variant="subtitle1"
+                    className={classes.padding}
+                    onClick={() => {
+                      dispatch(signOut());
+                      history.push("/");
+                    }}
+                  >
                     Logout
                   </Typography>
                 </Link>
@@ -264,7 +272,14 @@ function Navigation({ history }) {
           </Link>
 
           <Link to="/" className="navigation__link">
-            <Typography variant="subtitle1" className={classes.padding}>
+            <Typography
+              variant="subtitle1"
+              className={classes.padding}
+              onClick={() => {
+                dispatch(signOut());
+                history.push("/");
+              }}
+            >
               Logout
             </Typography>
           </Link>

@@ -17,10 +17,14 @@ export const authenticationSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
+    userLogout: (state, action) => {
+      state.user = action.payload;
+      state.token = action.payload;
+    },
   },
 });
 
-export const { setLoading, setUser } = authenticationSlice.actions;
+export const { setLoading, setUser, userLogout } = authenticationSlice.actions;
 
 export const signup = (user) => async (dispatch) => {
   dispatch(setLoading(true));
@@ -94,6 +98,17 @@ export const isAuthenticated = () => (dispatch) => {
   }
 };
 
+export const signOut = () => async (dispatch) => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("jwt");
+    return await fetch(`${API}/signout`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => dispatch(userLogout(null)))
+      .catch((error) => dispatch(setError(error)));
+  }
+};
 export const selectAuthentication = (state) => state.authentication;
 
 export default authenticationSlice.reducer;
