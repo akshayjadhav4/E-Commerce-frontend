@@ -25,6 +25,11 @@ function App() {
         <Route path="/signin" exact component={Signin} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
+        <AdminRoute
+          path="/admin/create/category"
+          exact
+          component={AdminDashboard}
+        />
       </Router>
     </div>
   );

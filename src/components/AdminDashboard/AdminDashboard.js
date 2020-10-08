@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
+import AddCategory from "../AddCategory/AddCategory";
 function AdminDashboard() {
   const history = useHistory();
 
@@ -27,6 +28,9 @@ function AdminDashboard() {
               </Typography>
               <Typography>Email : {user.email}</Typography>
             </div>
+          )}
+          {history.location.pathname === "/admin/create/category" && (
+            <AddCategory />
           )}
         </div>
       </div>
