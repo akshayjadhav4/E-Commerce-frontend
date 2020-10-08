@@ -23,10 +23,12 @@ export const categoriesSlice = createSlice({
       state.isLoading = false;
       state.message = `${action.payload.name} category created.`;
     },
-    deleteCategory: (state, action) => {
+    removeCategory: (state, action) => {
       state.categories = state.categories.filter(
-        (category) => category._id !== action.payload
+        (category) => category._id !== action.payload._id
       );
+      state.isLoading = false;
+      state.message = action.payload.data;
     },
   },
 });
@@ -35,7 +37,7 @@ export const {
   setCategories,
   setLoading,
   addCategory,
-  deleteCategory,
+  removeCategory,
 } = categoriesSlice.actions;
 
 export const createCategory = (userID, token, category) => async (dispatch) => {
@@ -77,6 +79,31 @@ export const getCategories = () => async (dispatch) => {
         dispatch(setError(data.error));
       } else {
         dispatch(setCategories(data));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => dispatch(setError(error)));
+};
+
+export const deleteCategory = (categoryID, userID, token) => async (
+  dispatch
+) => {
+  dispatch(setLoading());
+  await fetch(`${API}/category/delete/${categoryID}/${userID}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+      } else {
+        dispatch(removeCategory({ data: data.message, _id: categoryID }));
         dispatch(clearError());
       }
     })
