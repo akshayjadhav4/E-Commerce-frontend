@@ -7,6 +7,7 @@ import { Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
 import AddCategory from "../AddCategory/AddCategory";
+import ManageCategory from "../ManageCategory/ManageCategory";
 function AdminDashboard() {
   const history = useHistory();
 
@@ -31,6 +32,9 @@ function AdminDashboard() {
           )}
           {history.location.pathname === "/admin/create/category" && (
             <AddCategory />
+          )}
+          {history.location.pathname === "/admin/manage/category" && (
+            <ManageCategory />
           )}
         </div>
       </div>

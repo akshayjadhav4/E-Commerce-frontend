@@ -1,0 +1,14 @@
+.manageCategory__card {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.manageCategory__deleteIcon {
+  color: #e71c23 !important;
+}
+
+.manageCategory__editIcon {
+  color: #f4c724 !important;
+}

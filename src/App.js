@@ -10,6 +10,7 @@ import { isAuthenticated } from "./features/authentication/authenticationSlice";
 import PrivateRoute from "./helpers/auth/PrivateRoutes";
 import AdminRoute from "./helpers/auth/AdminRoutes";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -27,6 +28,11 @@ function App() {
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute
           path="/admin/create/category"
+          exact
+          component={AdminDashboard}
+        />
+        <AdminRoute
+          path="/admin/manage/category"
           exact
           component={AdminDashboard}
         />

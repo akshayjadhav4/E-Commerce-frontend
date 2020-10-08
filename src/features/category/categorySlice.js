@@ -23,6 +23,11 @@ export const categoriesSlice = createSlice({
       state.isLoading = false;
       state.message = `${action.payload.name} category created.`;
     },
+    deleteCategory: (state, action) => {
+      state.categories = state.categories.filter(
+        (category) => category._id !== action.payload
+      );
+    },
   },
 });
 
@@ -30,6 +35,7 @@ export const {
   setCategories,
   setLoading,
   addCategory,
+  deleteCategory,
 } = categoriesSlice.actions;
 
 export const createCategory = (userID, token, category) => async (dispatch) => {
@@ -52,6 +58,25 @@ export const createCategory = (userID, token, category) => async (dispatch) => {
         dispatch(setError(data.error));
       } else {
         dispatch(addCategory(data));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => dispatch(setError(error)));
+};
+
+export const getCategories = () => async (dispatch) => {
+  dispatch(setLoading());
+  await fetch(`${API}/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+      } else {
+        dispatch(setCategories(data));
         dispatch(clearError());
       }
     })

@@ -16,6 +16,17 @@
   flex: 0.7;
   border: 1px solid #3f3f3f;
   padding: 20px;
+  overflow-y: scroll;
+}
+
+/* hide scrollbar */
+.adminDashboard__right::-webkit-scrollbar {
+  display: none;
+}
+
+.adminDashboard__right {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .admindashboard__info {
