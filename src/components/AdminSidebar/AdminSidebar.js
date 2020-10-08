@@ -6,7 +6,7 @@ function AdminSidebar() {
     <div className="adminSidebar">
       <List>
         <SidebarOption title="Dashboard" path="/admin/dashboard" />
-        <SidebarOption title="Create Product" path="/admin/create/prpduct" />
+        <SidebarOption title="Create Product" path="/admin/create/product" />
         <SidebarOption title="Manage Prodcuts" path="/admin/manage/prodcuts" />
 
         <SidebarOption title="Create Category" path="/admin/create/category" />
