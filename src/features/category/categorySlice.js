@@ -30,6 +30,14 @@ export const categoriesSlice = createSlice({
       state.isLoading = false;
       state.message = action.payload.data;
     },
+    updateCategoryList: (state, action) => {
+      let data = [...state.categories];
+      let res = data.findIndex((obj) => obj._id === action.payload._id);
+      data[res].name = action.payload.name;
+      state.categories = data;
+      state.isLoading = false;
+      state.message = "Category Updated";
+    },
   },
 });
 
@@ -38,6 +46,7 @@ export const {
   setLoading,
   addCategory,
   removeCategory,
+  updateCategoryList,
 } = categoriesSlice.actions;
 
 export const createCategory = (userID, token, category) => async (dispatch) => {
@@ -104,6 +113,34 @@ export const deleteCategory = (categoryID, userID, token) => async (
         dispatch(setError(data.error));
       } else {
         dispatch(removeCategory({ data: data.message, _id: categoryID }));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => dispatch(setError(error)));
+};
+
+export const updateCategory = (categoryID, userID, token, category) => async (
+  dispatch
+) => {
+  dispatch(setLoading());
+  await fetch(`${API}/category/update/${categoryID}/${userID}`, {
+    //header info
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(category),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+      } else {
+        dispatch(updateCategoryList(data));
         dispatch(clearError());
       }
     })

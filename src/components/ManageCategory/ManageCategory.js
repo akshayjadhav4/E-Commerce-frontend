@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import EditIcon from "@material-ui/icons/Edit";
 import FlipMove from "react-flip-move";
 import {
   selectCategories,
@@ -19,6 +18,7 @@ import {
 } from "../../features/category/categorySlice";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
 import { selectError } from "../../features/error/errorSlice";
+import UpdateCategoryDialog from "../UpdateCategoryDialog/UpdateCategoryDialog";
 
 function ManageCategory() {
   const dispatch = useDispatch();
@@ -57,9 +57,7 @@ function ManageCategory() {
                 >
                   <DeleteForeverIcon className="manageCategory__deleteIcon" />
                 </IconButton>
-                <IconButton>
-                  <EditIcon className="manageCategory__editIcon" />
-                </IconButton>
+                <UpdateCategoryDialog category={category} />
               </CardActions>
             </Card>
           ))}
