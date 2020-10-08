@@ -9,10 +9,46 @@ export const productsSlice = createSlice({
     productMessage: "",
     isLoading: false,
   },
-  reducers: {},
+  reducers: {
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+      state.message = "";
+    },
+    addProductToList: (state, action) => {
+      delete action.payload.photo;
+      state.products = [action.payload, ...state.products];
+      state.isLoading = false;
+      state.productMessage = `${action.payload.name} product created.`;
+    },
+  },
 });
 
-export const {} = productsSlice.actions;
+export const { setLoading, addProductToList } = productsSlice.actions;
+
+export const createProduct = (userID, token, product) => async (dispatch) => {
+  dispatch(setLoading(true));
+  await fetch(`${API}/product/create/${userID}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: product,
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+        dispatch(setLoading(false));
+      } else {
+        dispatch(addProductToList(data));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => dispatch(setError(error)));
+};
 
 export const selectProducts = (state) => state.products;
 
