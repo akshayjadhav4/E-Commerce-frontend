@@ -17,6 +17,7 @@ import { selectAuthentication } from "../../features/authentication/authenticati
 import {
   getAllProducts,
   selectProducts,
+  deleteProduct,
 } from "../../features/products/productsSlice";
 function ManageProducts() {
   const dispatch = useDispatch();
@@ -59,7 +60,11 @@ function ManageProducts() {
                 </div>
               </CardContent>
               <CardActions className="manageProducts__cardActions">
-                <IconButton onClick={() => {}}>
+                <IconButton
+                  onClick={() => {
+                    dispatch(deleteProduct(product._id, user._id, token));
+                  }}
+                >
                   <DeleteForeverIcon className="manageProducts__deleteIcon" />
                 </IconButton>
                 {/* Update */}

@@ -24,6 +24,13 @@ export const productsSlice = createSlice({
       state.products = action.payload;
       state.isLoading = false;
     },
+    removeProduct: (state, action) => {
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload._id
+      );
+      state.isLoading = false;
+      state.productMessage = action.payload.data;
+    },
   },
 });
 
@@ -31,6 +38,7 @@ export const {
   setLoading,
   addProductToList,
   fetchProducts,
+  removeProduct,
 } = productsSlice.actions;
 
 export const createProduct = (userID, token, product) => async (dispatch) => {
@@ -78,6 +86,34 @@ export const getAllProducts = () => async (dispatch) => {
     })
     .catch((error) => dispatch(setError(error)));
 };
+
+//delete product
+export const deleteProduct = (productID, userID, token) => async (dispatch) => {
+  dispatch(setLoading(true));
+  await fetch(`${API}/product/delete/${productID}/${userID}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+        dispatch(setLoading(false));
+      } else {
+        dispatch(removeProduct({ data: data.message, _id: productID }));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => {
+      dispatch(setError("ERROR IN PRODUCT DELETE"));
+    });
+};
+
 export const selectProducts = (state) => state.products;
 
 export default productsSlice.reducer;
