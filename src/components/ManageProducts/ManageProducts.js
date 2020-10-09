@@ -7,6 +7,7 @@ import {
   CardActions,
   IconButton,
   LinearProgress,
+  Button,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -19,6 +20,7 @@ import {
   selectProducts,
   deleteProduct,
 } from "../../features/products/productsSlice";
+import { Link } from "react-router-dom";
 function ManageProducts() {
   const dispatch = useDispatch();
 
@@ -60,6 +62,14 @@ function ManageProducts() {
                 </div>
               </CardContent>
               <CardActions className="manageProducts__cardActions">
+                <Button variant="outlined">
+                  <Link
+                    to={`/admin/update/${product._id}`}
+                    className="manageProducts__Link"
+                  >
+                    UPDATE
+                  </Link>
+                </Button>
                 <IconButton
                   onClick={() => {
                     dispatch(deleteProduct(product._id, user._id, token));
@@ -67,7 +77,6 @@ function ManageProducts() {
                 >
                   <DeleteForeverIcon className="manageProducts__deleteIcon" />
                 </IconButton>
-                {/* Update */}
               </CardActions>
             </Card>
           ))}

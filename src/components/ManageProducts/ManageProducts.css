@@ -20,6 +20,7 @@
   color: #e71c23 !important;
 }
 
-.manageProducts__editIcon {
+.manageProducts__Link {
+  text-decoration: none;
   color: #f4c724 !important;
 }

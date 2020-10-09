@@ -10,6 +10,7 @@ import { isAuthenticated } from "./features/authentication/authenticationSlice";
 import PrivateRoute from "./helpers/auth/PrivateRoutes";
 import AdminRoute from "./helpers/auth/AdminRoutes";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import UpdateProduct from "./components/UpdateProduct/UpdateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,11 @@ function App() {
           path="/admin/manage/prodcuts"
           exact
           component={AdminDashboard}
+        />
+        <AdminRoute
+          path="/admin/update/:productId"
+          exact
+          component={UpdateProduct}
         />
       </Router>
     </div>
