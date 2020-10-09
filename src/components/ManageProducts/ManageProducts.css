@@ -1,0 +1,25 @@
+.manageProducts__card {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.manageProducts__cardContent > h5 {
+  font-weight: 800;
+  font-size: 25px;
+  color: black;
+}
+.manageProducts__itemCount {
+  font-weight: 500;
+  font-size: 12px;
+  color: #626060;
+}
+
+.manageProducts__deleteIcon {
+  color: #e71c23 !important;
+}
+
+.manageProducts__editIcon {
+  color: #f4c724 !important;
+}

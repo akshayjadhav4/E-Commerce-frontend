@@ -20,10 +20,18 @@ export const productsSlice = createSlice({
       state.isLoading = false;
       state.productMessage = `${action.payload.name} product created.`;
     },
+    fetchProducts: (state, action) => {
+      state.products = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
-export const { setLoading, addProductToList } = productsSlice.actions;
+export const {
+  setLoading,
+  addProductToList,
+  fetchProducts,
+} = productsSlice.actions;
 
 export const createProduct = (userID, token, product) => async (dispatch) => {
   dispatch(setLoading(true));
@@ -50,6 +58,26 @@ export const createProduct = (userID, token, product) => async (dispatch) => {
     .catch((error) => dispatch(setError(error)));
 };
 
+// get  all products
+export const getAllProducts = () => async (dispatch) => {
+  dispatch(setLoading(true));
+  await fetch(`${API}/products`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+        dispatch(setLoading(false));
+      } else {
+        dispatch(fetchProducts(data));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => dispatch(setError(error)));
+};
 export const selectProducts = (state) => state.products;
 
 export default productsSlice.reducer;
