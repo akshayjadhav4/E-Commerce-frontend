@@ -41,6 +41,11 @@ function App() {
           exact
           component={AdminDashboard}
         />
+        <AdminRoute
+          path="/admin/manage/prodcuts"
+          exact
+          component={AdminDashboard}
+        />
       </Router>
     </div>
   );

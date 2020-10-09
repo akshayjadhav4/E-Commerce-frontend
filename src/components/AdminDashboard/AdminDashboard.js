@@ -9,6 +9,7 @@ import { selectAuthentication } from "../../features/authentication/authenticati
 import AddCategory from "../AddCategory/AddCategory";
 import ManageCategory from "../ManageCategory/ManageCategory";
 import AddProduct from "../AddProduct/AddProduct";
+import ManageProducts from "../ManageProducts/ManageProducts";
 function AdminDashboard() {
   const history = useHistory();
 
@@ -39,6 +40,9 @@ function AdminDashboard() {
           )}
           {history.location.pathname === "/admin/create/product" && (
             <AddProduct />
+          )}
+          {history.location.pathname === "/admin/manage/prodcuts" && (
+            <ManageProducts />
           )}
         </div>
       </div>
