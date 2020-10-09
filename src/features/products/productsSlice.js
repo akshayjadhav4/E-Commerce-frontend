@@ -63,7 +63,7 @@ export const createProduct = (userID, token, product) => async (dispatch) => {
         dispatch(clearError());
       }
     })
-    .catch((error) => dispatch(setError(error)));
+    .catch((error) => dispatch(setError("ERROR WHILE CREATING PRODUCT")));
 };
 
 // get  all products
@@ -84,7 +84,7 @@ export const getAllProducts = () => async (dispatch) => {
         dispatch(clearError());
       }
     })
-    .catch((error) => dispatch(setError(error)));
+    .catch((error) => dispatch(setError("ERROR WHILE FETCHING PRODUCTS")));
 };
 
 //delete product
