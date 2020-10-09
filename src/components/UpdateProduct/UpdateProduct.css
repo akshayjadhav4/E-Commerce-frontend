@@ -1,0 +1,11 @@
+.updateProduct__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.updateProduct__link {
+  text-decoration: none;
+  color: #f46d4f;
+  margin-right: 5px;
+}

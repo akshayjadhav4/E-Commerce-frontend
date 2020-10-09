@@ -12,7 +12,7 @@ export const productsSlice = createSlice({
   reducers: {
     setLoading: (state, action) => {
       state.isLoading = action.payload;
-      state.message = "";
+      state.productMessage = "";
     },
     addProductToList: (state, action) => {
       delete action.payload.photo;
@@ -31,6 +31,9 @@ export const productsSlice = createSlice({
       state.isLoading = false;
       state.productMessage = action.payload.data;
     },
+    updateProductFromList: (state, action) => {
+      state.productMessage = `${action.payload.name} product updated.`;
+    },
   },
 });
 
@@ -39,6 +42,7 @@ export const {
   addProductToList,
   fetchProducts,
   removeProduct,
+  updateProductFromList,
 } = productsSlice.actions;
 
 export const createProduct = (userID, token, product) => async (dispatch) => {
@@ -112,6 +116,35 @@ export const deleteProduct = (productID, userID, token) => async (dispatch) => {
     .catch((error) => {
       dispatch(setError("ERROR IN PRODUCT DELETE"));
     });
+};
+
+//update product
+export const updateProduct = (productID, userID, token, product) => async (
+  dispatch
+) => {
+  dispatch(setLoading(true));
+  await fetch(`${API}/product/update/${productID}/${userID}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: product,
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+        dispatch(setLoading(false));
+      } else {
+        dispatch(getAllProducts());
+        dispatch(updateProductFromList(data));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => console.log("ERROR IN UPDATING PRODUCT INFO"));
 };
 
 export const selectProducts = (state) => state.products;
