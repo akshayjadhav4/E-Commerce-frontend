@@ -17,10 +17,19 @@ export const cartSlice = createSlice({
     hideMessage: (state) => {
       state.cartMessage = "";
     },
+    removeProductFromCart: (state, action) => {
+      state.cart = action.payload;
+      state.cartMessage = `Product removed from Cart `;
+    },
   },
 });
 
-export const { addProductToCart, setCart, hideMessage } = cartSlice.actions;
+export const {
+  addProductToCart,
+  setCart,
+  hideMessage,
+  removeProductFromCart,
+} = cartSlice.actions;
 
 export const addToCart = (item) => (dispatch) => {
   let cart = [];
@@ -42,6 +51,25 @@ export const getCart = () => (dispatch) => {
     }
   }
 };
+
+export const removeItemFromCart = (productID) => (dispatch) => {
+  let cart = [];
+  if (typeof window !== undefined) {
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    cart.map((product, index) => {
+      if (product._id === productID) {
+        cart.splice(index, 1);
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    dispatch(removeProductFromCart(cart));
+  }
+};
+
+export const getBasketTotal = (cart) =>
+  cart?.reduce((amount, item) => item.price + amount, 0);
 
 export const selectCart = (state) => state.cart;
 export default cartSlice.reducer;

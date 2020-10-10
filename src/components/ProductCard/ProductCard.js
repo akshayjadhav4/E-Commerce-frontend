@@ -14,7 +14,11 @@ import ImageHelper from "../../helpers/ImageHelper/ImageHelper";
 import PriceDisplay from "../../helpers/PriceDisplay/PriceDisplay";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart, hideMessage } from "../../features/cart/cartSlice";
+import {
+  addToCart,
+  hideMessage,
+  removeItemFromCart,
+} from "../../features/cart/cartSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +32,13 @@ function ProductCard({ product, showAddToCart }) {
 
   const addProduct = () => {
     dispatch(addToCart(product));
+    setTimeout(() => {
+      dispatch(hideMessage());
+    }, 4000);
+  };
+
+  const removeProduct = (productID) => {
+    dispatch(removeItemFromCart(productID));
     setTimeout(() => {
       dispatch(hideMessage());
     }, 4000);
@@ -57,7 +68,11 @@ function ProductCard({ product, showAddToCart }) {
               <AddShoppingCartIcon style={{ color: "#45CE30" }} />
             </IconButton>
           ) : (
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                removeProduct(product._id);
+              }}
+            >
               <RemoveShoppingCartIcon style={{ color: "#FF3031" }} />
             </IconButton>
           )}
