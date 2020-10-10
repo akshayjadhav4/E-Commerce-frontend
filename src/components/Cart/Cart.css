@@ -15,3 +15,8 @@
   background-color: #f46d4f !important;
   color: white !important;
 }
+
+.cart__amount > .MuiButton-outlined {
+  border: 1px solid #ff3031 !important;
+  color: #ff3031 !important;
+}

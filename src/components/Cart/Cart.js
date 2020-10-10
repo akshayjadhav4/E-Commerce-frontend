@@ -4,12 +4,24 @@ import BaseLayout from "../Base Layout/BaseLayout";
 import { Alert } from "@material-ui/lab";
 import { Grid, Typography, Button } from "@material-ui/core";
 import ProductCard from "../ProductCard/ProductCard";
-import { useSelector } from "react-redux";
-import { selectCart } from "../../features/cart/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectCart,
+  cartEmpty,
+  hideMessage,
+} from "../../features/cart/cartSlice";
 import SubTotal from "../../helpers/SubTotal/SubTotal";
 
 function Cart() {
+  const dispatch = useDispatch();
   const { cartMessage, cart } = useSelector(selectCart);
+
+  const removeAllProducts = () => {
+    dispatch(cartEmpty);
+    setTimeout(() => {
+      dispatch(hideMessage());
+    }, 2000);
+  };
 
   return (
     <BaseLayout title="Your Cart">
@@ -19,6 +31,9 @@ function Cart() {
       <div className="cart">
         <div className="cart__amount">
           <SubTotal cart={cart} />
+          <Button variant="outlined" onClick={removeAllProducts}>
+            Empty Cart
+          </Button>
           <Button variant="contained">PROCEED TO CHECKOUT</Button>
         </div>
         {cart?.length > 0 ? (

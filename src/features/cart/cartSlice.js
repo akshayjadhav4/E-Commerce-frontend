@@ -21,6 +21,10 @@ export const cartSlice = createSlice({
       state.cart = action.payload;
       state.cartMessage = `Product removed from Cart `;
     },
+    emptyCart: (state) => {
+      state.cart = [];
+      state.cartMessage = "All products removed from cart";
+    },
   },
 });
 
@@ -29,6 +33,7 @@ export const {
   setCart,
   hideMessage,
   removeProductFromCart,
+  emptyCart,
 } = cartSlice.actions;
 
 export const addToCart = (item) => (dispatch) => {
@@ -65,6 +70,15 @@ export const removeItemFromCart = (productID) => (dispatch) => {
     });
     localStorage.setItem("cart", JSON.stringify(cart));
     dispatch(removeProductFromCart(cart));
+  }
+};
+
+export const cartEmpty = (dispatch) => {
+  if (typeof window !== undefined) {
+    localStorage.removeItem("cart");
+    let cart = [];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    dispatch(emptyCart());
   }
 };
 
