@@ -18,6 +18,8 @@ import {
   signOut,
   selectAuthentication,
 } from "../../features/authentication/authenticationSlice";
+import { selectCart } from "../../features/cart/cartSlice";
+
 const useStyles = makeStyles({
   list: {
     width: 200,
@@ -42,6 +44,7 @@ function Navigation({ history }) {
 
   // getting authentication state from store
   const { user } = useSelector(selectAuthentication);
+  const { cart } = useSelector(selectCart);
 
   //   calculating screen size
   useLayoutEffect(() => {
@@ -212,7 +215,7 @@ function Navigation({ history }) {
                   <div className="navigation__cartOption">
                     <ShoppingBasketIcon className="navigation__cartCount" />
                     <Typography variant="subtitle1" className={classes.padding}>
-                      0
+                      {cart?.length}
                     </Typography>
                   </div>
                 </Link>
@@ -319,7 +322,7 @@ function Navigation({ history }) {
             <div className="navigation__cartOption">
               <ShoppingBasketIcon className="navigation__cartCount" />
               <Typography variant="subtitle1" className={classes.padding}>
-                0
+                {cart?.length}
               </Typography>
             </div>
           </Link>
