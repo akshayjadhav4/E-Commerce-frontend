@@ -14,6 +14,7 @@ import AdminRoute from "./helpers/auth/AdminRoutes";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import UpdateProduct from "./components/UpdateProduct/UpdateProduct";
 import ViewProduct from "./components/ViewProduct/ViewProduct";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
         <Route path="/signup" exact component={Signup} />
         <Route path="/signin" exact component={Signin} />
         <Route path="/viewproduct/:productId" exact component={ViewProduct} />
+        <Route path="/cart" exact component={Cart} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute
