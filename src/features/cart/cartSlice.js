@@ -67,6 +67,7 @@ export const removeItemFromCart = (productID) => (dispatch) => {
       if (product._id === productID) {
         cart.splice(index, 1);
       }
+      return null;
     });
     localStorage.setItem("cart", JSON.stringify(cart));
     dispatch(removeProductFromCart(cart));
