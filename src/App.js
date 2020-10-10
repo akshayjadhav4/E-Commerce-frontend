@@ -7,10 +7,12 @@ import Signin from "./components/Signin/Signin";
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import { useDispatch } from "react-redux";
 import { isAuthenticated } from "./features/authentication/authenticationSlice";
+import { getAllProducts } from "./features/products/productsSlice";
 import PrivateRoute from "./helpers/auth/PrivateRoutes";
 import AdminRoute from "./helpers/auth/AdminRoutes";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import UpdateProduct from "./components/UpdateProduct/UpdateProduct";
+import ViewProduct from "./components/ViewProduct/ViewProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,12 +21,18 @@ function App() {
   useEffect(() => {
     dispatch(isAuthenticated());
   }, [dispatch]);
+
+  // get all products
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
   return (
     <div className="app">
       <Router>
         <Route path="/" exact component={Home} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/signin" exact component={Signin} />
+        <Route path="/viewproduct/:productId" exact component={ViewProduct} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute

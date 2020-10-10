@@ -1,0 +1,19 @@
+.viewProduct__image {
+  width: 400px;
+  max-height: 300px;
+}
+
+.viewProduct__topSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.viewProduct__image {
+  flex: 0.4;
+  margin: 10px;
+}
+
+.viewProduct__info {
+  flex: 0.6;
+  margin: 10px;
+}
