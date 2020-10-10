@@ -14,13 +14,13 @@ function Home() {
 
   return (
     <BaseLayout title="Welcome To My Store">
-      {/* Alert to show error */}
-      {error && <Alert severity="error">{error}</Alert>}
-      {/* Cart updated message */}
-      {cartMessage && <Alert severity="success">{cartMessage}</Alert>}
-      {isLoading && <LinearProgress color="secondary" />}
-      <br />
       <div className="home">
+        {/* Alert to show error */}
+        {error && <Alert severity="error">{error}</Alert>}
+        {/* Cart updated message */}
+        {cartMessage && <Alert severity="success">{cartMessage}</Alert>}
+        {isLoading && <LinearProgress color="secondary" />}
+        <br />
         <Grid container spacing={3}>
           {products &&
             products?.map((product) => (
