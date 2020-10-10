@@ -13,6 +13,8 @@ import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import ImageHelper from "../../helpers/ImageHelper/ImageHelper";
 import PriceDisplay from "../../helpers/PriceDisplay/PriceDisplay";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart, hideMessage } from "../../features/cart/cartSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +24,14 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductCard({ product, showAddToCart }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const addProduct = () => {
+    dispatch(addToCart(product));
+    setTimeout(() => {
+      dispatch(hideMessage());
+    }, 4000);
+  };
   return (
     <div className="productCard">
       <Card className={classes.root}>
@@ -43,7 +53,7 @@ function ProductCard({ product, showAddToCart }) {
         </CardContent>
         <CardActions disableSpacing>
           {showAddToCart ? (
-            <IconButton>
+            <IconButton onClick={addProduct}>
               <AddShoppingCartIcon style={{ color: "#45CE30" }} />
             </IconButton>
           ) : (

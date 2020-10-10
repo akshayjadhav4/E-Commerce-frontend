@@ -8,6 +8,7 @@ import UserDashboard from "./components/UserDashboard/UserDashboard";
 import { useDispatch } from "react-redux";
 import { isAuthenticated } from "./features/authentication/authenticationSlice";
 import { getAllProducts } from "./features/products/productsSlice";
+import { getCart } from "./features/cart/cartSlice";
 import PrivateRoute from "./helpers/auth/PrivateRoutes";
 import AdminRoute from "./helpers/auth/AdminRoutes";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
@@ -25,6 +26,10 @@ function App() {
   // get all products
   useEffect(() => {
     dispatch(getAllProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCart());
   }, [dispatch]);
   return (
     <div className="app">

@@ -6,15 +6,20 @@ import { Alert } from "@material-ui/lab";
 import { useSelector } from "react-redux";
 import { selectError } from "../../features/error/errorSlice";
 import { selectProducts } from "../../features/products/productsSlice";
+import { selectCart } from "../../features/cart/cartSlice";
 function Home() {
   const error = useSelector(selectError);
   const { products, isLoading } = useSelector(selectProducts);
+  const { cartMessage } = useSelector(selectCart);
 
   return (
     <BaseLayout title="Welcome To My Store">
       {/* Alert to show error */}
       {error && <Alert severity="error">{error}</Alert>}
+      {/* Cart updated message */}
+      {cartMessage && <Alert severity="success">{cartMessage}</Alert>}
       {isLoading && <LinearProgress color="secondary" />}
+      <br />
       <div className="home">
         <Grid container spacing={3}>
           {products &&
