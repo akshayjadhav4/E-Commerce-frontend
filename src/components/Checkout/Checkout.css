@@ -1,0 +1,33 @@
+.checkout {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout__list {
+  flex: 0.7;
+}
+
+.checkout__summary {
+  flex: 0.3;
+}
+.chekout__productCard {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 400px;
+}
+
+.checkout__dropin {
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 835px) {
+  .checkout {
+    flex-direction: column;
+  }
+  .chekout__productCard {
+    max-width: inherit;
+  }
+}
