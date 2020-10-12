@@ -65,8 +65,8 @@ function Checkout() {
         };
         processPayment(user._id, token, paymentData)
           .then((response) => {
-            if (response.error) {
-              alert(response.error);
+            if (response.errors) {
+              alert(response.message);
               setIsLoading(false);
             } else {
               const orderData = {
@@ -85,12 +85,12 @@ function Checkout() {
           })
           .catch((error) => {
             setIsLoading(false);
-            alert("ERROR WHILE PROCESSING");
+            alert("ERROR WHILE PURCHASEING");
           });
       })
       .catch((error) => {
         setIsLoading(false);
-        alert("ERROR WHILE PURCHASE");
+        alert("ERROR WHILE REQUESTING PAYMENT METHOD");
       });
   };
 
