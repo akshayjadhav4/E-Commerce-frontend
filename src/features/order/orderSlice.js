@@ -20,10 +20,14 @@ export const orderSlice = createSlice({
       state.isLoading = false;
       state.orderMessage = `Your order created.`;
     },
+    setOrders: (state, action) => {
+      state.orders = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
-export const { setLoading, addOrder } = orderSlice.actions;
+export const { setLoading, addOrder, setOrders } = orderSlice.actions;
 
 export const createOrder = (userId, token, orderInfo) => async (dispatch) => {
   dispatch(setLoading());
@@ -51,6 +55,32 @@ export const createOrder = (userId, token, orderInfo) => async (dispatch) => {
     .catch((err) => dispatch(setError("ERROR IN CREATING ORDER")));
 };
 
-export const selectOrders = (state) => state.orders;
+export const getCustomerOrders = (userID, token) => async (dispatch) => {
+  dispatch(setLoading());
+  await fetch(`${API}/orders/${userID}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+      } else {
+        dispatch(setOrders(data));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) =>
+      dispatch(setError("ERROR IN GETTING CUSTOMER ORDER HISTORY"))
+    );
+};
+
+export const selectOrders = (state) => state.order;
 
 export default orderSlice.reducer;

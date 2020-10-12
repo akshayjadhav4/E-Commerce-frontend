@@ -1,0 +1,27 @@
+.userDashboard__notfound {
+  display: grid;
+  place-items: center;
+  color: #626060;
+}
+
+.userDashboard__orderCard {
+  margin-bottom: 10px;
+}
+
+.userDashboard__orderCard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.userDashboard__orderProduct {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+  .userDashboard__orderCard {
+    flex-direction: column;
+  }
+}
