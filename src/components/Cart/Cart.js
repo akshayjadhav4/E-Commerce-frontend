@@ -11,6 +11,7 @@ import {
   hideMessage,
 } from "../../features/cart/cartSlice";
 import SubTotal from "../../helpers/SubTotal/SubTotal";
+import { Link } from "react-router-dom";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -34,7 +35,13 @@ function Cart() {
           <Button variant="outlined" onClick={removeAllProducts}>
             Empty Cart
           </Button>
-          <Button variant="contained">PROCEED TO CHECKOUT</Button>
+          {cart?.length > 0 && (
+            <Button variant="contained">
+              <Link to="/user/checkout" className="cart__link">
+                PROCEED TO CHECKOUT
+              </Link>
+            </Button>
+          )}
         </div>
         {cart?.length > 0 ? (
           <div className="cart__products">

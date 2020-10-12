@@ -20,3 +20,8 @@
   border: 1px solid #ff3031 !important;
   color: #ff3031 !important;
 }
+
+.cart__link {
+  text-decoration: none;
+  color: white;
+}
