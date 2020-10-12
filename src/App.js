@@ -15,6 +15,7 @@ import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import UpdateProduct from "./components/UpdateProduct/UpdateProduct";
 import ViewProduct from "./components/ViewProduct/ViewProduct";
 import Cart from "./components/Cart/Cart";
+import Checkout from "./components/Checkout/Checkout";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
         <Route path="/viewproduct/:productId" exact component={ViewProduct} />
         <Route path="/cart" exact component={Cart} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
+        <PrivateRoute path="/user/checkout" exact component={Checkout} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute
           path="/admin/create/category"
