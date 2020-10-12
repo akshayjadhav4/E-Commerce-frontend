@@ -102,7 +102,7 @@ function Checkout() {
     dispatch(removeItemFromCart(id));
     setTimeout(() => {
       dispatch(hideMessage());
-    }, 2000);
+    }, 1000);
   };
   return (
     <BaseLayout title="Checkout">

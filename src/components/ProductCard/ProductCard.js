@@ -34,14 +34,14 @@ function ProductCard({ product, showAddToCart }) {
     dispatch(addToCart(product));
     setTimeout(() => {
       dispatch(hideMessage());
-    }, 4000);
+    }, 1000);
   };
 
   const removeProduct = (productID) => {
     dispatch(removeItemFromCart(productID));
     setTimeout(() => {
       dispatch(hideMessage());
-    }, 4000);
+    }, 1000);
   };
   return (
     <div className="productCard">

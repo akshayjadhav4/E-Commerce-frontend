@@ -29,7 +29,7 @@ function ViewProduct() {
     dispatch(addToCart(product));
     setTimeout(() => {
       dispatch(hideMessage());
-    }, 4000);
+    }, 1000);
   };
 
   return (

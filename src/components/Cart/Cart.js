@@ -21,7 +21,7 @@ function Cart() {
     dispatch(cartEmpty);
     setTimeout(() => {
       dispatch(hideMessage());
-    }, 2000);
+    }, 1000);
   };
 
   return (
