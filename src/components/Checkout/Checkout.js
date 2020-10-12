@@ -30,6 +30,7 @@ import {
 import { useHistory } from "react-router-dom";
 import { getBasketTotal } from "../../features/cart/cartSlice";
 import { createOrder } from "../../features/order/orderSlice";
+import { CssTextField } from "../CssTextField/CssTextField";
 
 function Checkout() {
   const history = useHistory();
@@ -39,6 +40,7 @@ function Checkout() {
 
   const [clientToken, setClientToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [address, setAddress] = useState("");
   const getToken = (userId, token) => {
     getmeToken(userId, token)
       .then((info) => {
@@ -73,7 +75,7 @@ function Checkout() {
                 products: cart,
                 transaction_id: response.transaction.id,
                 amount: response.transaction.amount,
-                address: "Vita",
+                address: address,
               };
               dispatch(createOrder(user._id, token, orderData));
               // cart empty
@@ -137,37 +139,52 @@ function Checkout() {
               <Card>
                 <CardContent>
                   <SubTotal cart={cart} />
-                  <h1>Address Form</h1>
+                  <h3>Delivery Address</h3>
+                  <br />
+                  <CssTextField
+                    variant="outlined"
+                    fullWidth
+                    label="Address"
+                    name="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
                 </CardContent>
+                <span className="checkout__helpetText">
+                  First fill address then payment option will open
+                </span>
               </Card>
             </div>
           </div>
         </CardContent>
-        <div className="checkout__paymentCard">
-          <Typography variant="h4" align="center">
-            Payment
-          </Typography>
-          <div className="checkout__dropin">
-            {clientToken !== null ? (
-              <>
-                <DropIn
-                  options={{ authorization: clientToken.clientToken }}
-                  onInstance={(instance) => (clientToken.instance = instance)}
-                />
-                <Button
-                  onClick={onPurchase}
-                  variant="contained"
-                  fullWidth={true}
-                  disabled={isLoading}
-                >
-                  PURCHASE
-                </Button>
-              </>
-            ) : (
-              <h4>Loading...</h4>
-            )}
+        {/* render card only cart is not empty and address field is filled */}
+        {cart?.length > 0 && address?.length > 4 && (
+          <div className="checkout__paymentCard">
+            <Typography variant="h4" align="center">
+              Payment
+            </Typography>
+            <div className="checkout__dropin">
+              {clientToken !== null ? (
+                <>
+                  <DropIn
+                    options={{ authorization: clientToken.clientToken }}
+                    onInstance={(instance) => (clientToken.instance = instance)}
+                  />
+                  <Button
+                    onClick={onPurchase}
+                    variant="contained"
+                    fullWidth={true}
+                    disabled={isLoading}
+                  >
+                    PURCHASE
+                  </Button>
+                </>
+              ) : (
+                <h4>Loading...</h4>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </Card>
     </BaseLayout>
   );

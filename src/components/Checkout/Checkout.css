@@ -23,6 +23,12 @@
   padding: 20px;
 }
 
+.checkout__helpetText {
+  padding: 20px;
+  font-size: 12px;
+  color: gray;
+}
+
 @media (max-width: 835px) {
   .checkout {
     flex-direction: column;
