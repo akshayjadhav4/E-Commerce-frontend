@@ -63,8 +63,12 @@ function ViewProduct() {
               {product[0]?.category.name}
             </Typography>
 
-            <IconButton onClick={addProduct}>
-              <AddShoppingCartIcon style={{ color: "#45CE30" }} />
+            <IconButton onClick={addProduct} disabled={product[0]?.stock === 0}>
+              <AddShoppingCartIcon
+                style={{
+                  color: product[0]?.stock === 0 ? "#c1c1c1" : "#45CE30",
+                }}
+              />
             </IconButton>
           </div>
         </div>
