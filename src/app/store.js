@@ -4,6 +4,7 @@ import authenticationReducer from "../features/authentication/authenticationSlic
 import categorySliceReducer from "../features/category/categorySlice";
 import productsSliceReducer from "../features/products/productsSlice";
 import cartSliceReducer from "../features/cart/cartSlice";
+import orderSliceReducer from "../features/order/orderSlice";
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     categories: categorySliceReducer,
     products: productsSliceReducer,
     cart: cartSliceReducer,
+    order: orderSliceReducer,
   },
 });
