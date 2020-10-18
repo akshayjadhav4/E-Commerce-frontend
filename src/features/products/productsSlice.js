@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setError, clearError } from "../error/errorSlice";
 import { API } from "../../api/backend";
+import { getCustomerOrders } from "../order/orderSlice";
 
 export const productsSlice = createSlice({
   name: "products",
@@ -149,6 +150,37 @@ export const updateProduct = (productID, userID, token, product) => async (
       }
     })
     .catch((error) => console.log("ERROR IN UPDATING PRODUCT INFO"));
+};
+
+// add review
+export const addReview = (userID, token, productID, review) => async (
+  dispatch
+) => {
+  dispatch(setLoading(true));
+  await fetch(`${API}/review/add/${productID}/${userID}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(review),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+        dispatch(setLoading(false));
+      } else {
+        alert("Review Added");
+        dispatch(setLoading(false));
+        dispatch(getCustomerOrders(userID, token));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) => dispatch(setError("ERROR WHILE CREATING PRODUCT")));
 };
 
 export const selectProducts = (state) => state.products;

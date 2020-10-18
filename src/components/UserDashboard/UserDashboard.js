@@ -7,8 +7,9 @@ import {
   getCustomerOrders,
 } from "../../features/order/orderSlice";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent, CardActions } from "@material-ui/core";
 import CurrencyFormat from "react-currency-format";
+import AddReview from "../AddReview/AddReview";
 
 function UserDashboard() {
   const dispatch = useDispatch();
@@ -51,21 +52,28 @@ function UserDashboard() {
                   <CardContent className="userDashboard__orderTwo">
                     <h3>Products Purchased</h3>
                     {order.products.map((product) => (
-                      <div className="userDashboard__orderProduct">
-                        <p>{product.name}</p>
-                        <CurrencyFormat
-                          renderText={(value) => (
-                            <>
-                              <strong> {value}</strong>
-                            </>
-                          )}
-                          decimalScale={2}
-                          value={product.price}
-                          displayType={"text"}
-                          thousandSeparator={true}
-                          prefix={"₹"}
-                        />
-                      </div>
+                      <>
+                        <div className="userDashboard__orderProduct">
+                          <p>{product.name}</p>
+                          <CurrencyFormat
+                            renderText={(value) => (
+                              <>
+                                <strong> {value}</strong>
+                              </>
+                            )}
+                            decimalScale={2}
+                            value={product.price}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"₹"}
+                          />
+                        </div>
+                        {order.status === "Delivered" && (
+                          <CardActions>
+                            <AddReview productId={product._id} />
+                          </CardActions>
+                        )}
+                      </>
                     ))}
                   </CardContent>
                 </Card>
