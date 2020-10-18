@@ -18,7 +18,7 @@ import {
   clearCategoriesMessage,
 } from "../../features/category/categorySlice";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
-import { selectError } from "../../features/error/errorSlice";
+import { selectError, clearError } from "../../features/error/errorSlice";
 import UpdateCategoryDialog from "../UpdateCategoryDialog/UpdateCategoryDialog";
 
 function ManageCategory() {
@@ -28,7 +28,11 @@ function ManageCategory() {
   const error = useSelector(selectError);
   useEffect(() => {
     dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(clearCategoriesMessage());
+    dispatch(clearError());
   }, [dispatch]);
   return (
     <div className="manageCategory">

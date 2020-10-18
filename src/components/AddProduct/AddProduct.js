@@ -19,7 +19,7 @@ import {
   getCategories,
   selectCategories,
 } from "../../features/category/categorySlice";
-import { selectError } from "../../features/error/errorSlice";
+import { selectError, clearError } from "../../features/error/errorSlice";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
 import {
   selectProducts,
@@ -68,10 +68,13 @@ function AddProduct() {
   //   getting categories for showing in dropdown menu
   useEffect(() => {
     dispatch(getCategories());
-    //clearing all prvious product related messages.
-    dispatch(clearProductMessage());
   }, [dispatch]);
 
+  useEffect(() => {
+    //clearing all prvious product related messages.
+    dispatch(clearProductMessage());
+    dispatch(clearError());
+  }, [dispatch]);
   return (
     <div className="addProduct">
       <Typography variant="h4">Add Product</Typography>

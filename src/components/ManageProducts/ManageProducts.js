@@ -13,12 +13,13 @@ import { Alert } from "@material-ui/lab";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import FlipMove from "react-flip-move";
 import { useSelector, useDispatch } from "react-redux";
-import { selectError } from "../../features/error/errorSlice";
+import { selectError, clearError } from "../../features/error/errorSlice";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
 import {
   getAllProducts,
   selectProducts,
   deleteProduct,
+  clearProductMessage,
 } from "../../features/products/productsSlice";
 import { Link } from "react-router-dom";
 function ManageProducts() {
@@ -32,6 +33,11 @@ function ManageProducts() {
     dispatch(getAllProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    //clearing all prvious product related messages.
+    dispatch(clearProductMessage());
+    dispatch(clearError());
+  }, [dispatch]);
   return (
     <div className="manageProducts">
       <Typography variant="h4">Manage Products</Typography>
