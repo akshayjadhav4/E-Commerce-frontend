@@ -7,6 +7,7 @@ import {
   CardContent,
   CardActions,
   IconButton,
+  LinearProgress,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -23,7 +24,7 @@ import UpdateCategoryDialog from "../UpdateCategoryDialog/UpdateCategoryDialog";
 
 function ManageCategory() {
   const dispatch = useDispatch();
-  const { categories, message } = useSelector(selectCategories);
+  const { categories, message, isLoading } = useSelector(selectCategories);
   const { user, token } = useSelector(selectAuthentication);
   const error = useSelector(selectError);
   useEffect(() => {
@@ -43,6 +44,7 @@ function ManageCategory() {
       {error && <Alert severity="error">{error}</Alert>}
       {/* Alert to show Success */}
       {message && <Alert severity="success">{message}</Alert>}
+      {isLoading && <LinearProgress />}
       <br />
       <div className="manageCategory__list">
         <FlipMove>
