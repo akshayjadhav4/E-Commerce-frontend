@@ -6,7 +6,7 @@ import { Alert } from "@material-ui/lab";
 import { useSelector, useDispatch } from "react-redux";
 import { selectError, clearError } from "../../features/error/errorSlice";
 import { selectProducts } from "../../features/products/productsSlice";
-import { selectCart } from "../../features/cart/cartSlice";
+import { selectCart, hideMessage } from "../../features/cart/cartSlice";
 function Home() {
   const error = useSelector(selectError);
   const { products, isLoading } = useSelector(selectProducts);
@@ -16,6 +16,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(clearError());
+    dispatch(hideMessage());
   }, [dispatch]);
 
   return (
