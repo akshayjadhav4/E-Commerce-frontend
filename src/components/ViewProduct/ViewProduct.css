@@ -18,6 +18,10 @@
   margin: 10px;
 }
 
+.viewProduct__reviewCard {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 600px) {
   .viewProduct__topSection {
     flex-direction: column;

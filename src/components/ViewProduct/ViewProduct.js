@@ -11,9 +11,9 @@ import {
 } from "../../features/cart/cartSlice";
 import ImageHelper from "../../helpers/ImageHelper/ImageHelper";
 import PriceDisplay from "../../helpers/PriceDisplay/PriceDisplay";
-import { Typography, IconButton } from "@material-ui/core";
+import { Typography, IconButton, Card, CardContent } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import { Alert } from "@material-ui/lab";
+import { Alert, Rating } from "@material-ui/lab";
 
 function ViewProduct() {
   const { productId } = useParams();
@@ -73,6 +73,21 @@ function ViewProduct() {
           </div>
         </div>
         <h1>Reviews</h1>
+        {product[0]?.reviews.length > 0 ? (
+          <div className="viewProduct__reviews">
+            {product[0]?.reviews.map((review) => (
+              <Card className="viewProduct__reviewCard">
+                <CardContent>
+                  <h3>CustomerId: {review.author}</h3>
+                  <p>{review.content}</p>
+                  <Rating name="reviewRating" value={review.rating} readOnly />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <h3>No Reviews</h3>
+        )}
       </div>
     </BaseLayout>
   );
