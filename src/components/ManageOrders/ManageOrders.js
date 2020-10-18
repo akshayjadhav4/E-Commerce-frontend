@@ -83,28 +83,30 @@ function ManageOrders() {
                     </div>
                   ))}
                 </CardContent>
-                <CardActions>
-                  <span>Update Order Status</span>
-                  <FormControl>
-                    <Select
-                      variant="outlined"
-                      name="status"
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value)}
-                    >
-                      <MenuItem value="Processing">Processing</MenuItem>
-                      <MenuItem value="Delivered">Delivered</MenuItem>
-                    </Select>
-                  </FormControl>
-                  {!!status && (
-                    <Button
-                      onClick={() => updateStatus(order._id)}
-                      variant="contained"
-                    >
-                      Update
-                    </Button>
-                  )}
-                </CardActions>
+                {order.status !== "Delivered" && (
+                  <CardActions>
+                    <span>Update Order Status</span>
+                    <FormControl>
+                      <Select
+                        variant="outlined"
+                        name="status"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                      >
+                        <MenuItem value="Processing">Processing</MenuItem>
+                        <MenuItem value="Delivered">Delivered</MenuItem>
+                      </Select>
+                    </FormControl>
+                    {!!status && (
+                      <Button
+                        onClick={() => updateStatus(order._id)}
+                        variant="contained"
+                      >
+                        Update
+                      </Button>
+                    )}
+                  </CardActions>
+                )}
               </Card>
             </div>
           ))}
