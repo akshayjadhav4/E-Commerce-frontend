@@ -14,7 +14,7 @@ import AddReview from "../AddReview/AddReview";
 function UserDashboard() {
   const dispatch = useDispatch();
   const { user, token } = useSelector(selectAuthentication);
-  const { orders } = useSelector(selectOrders);
+  const { orders, isLoading } = useSelector(selectOrders);
 
   useEffect(() => {
     dispatch(getCustomerOrders(user._id, token));
@@ -82,7 +82,11 @@ function UserDashboard() {
           </div>
         ) : (
           <div className="userDashboard__notfound">
-            <h1>No previous shopping records.</h1>
+            {isLoading ? (
+              <h1>Loading...</h1>
+            ) : (
+              <h1>No previous shopping records.</h1>
+            )}
           </div>
         )}
       </div>
