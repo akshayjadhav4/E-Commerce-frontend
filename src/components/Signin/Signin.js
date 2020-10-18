@@ -3,7 +3,7 @@ import "./Signin.css";
 import BaseLayout from "../Base Layout/BaseLayout";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, Redirect } from "react-router-dom";
@@ -68,6 +68,8 @@ function Signin() {
       <div className="signin">
         {/* Alert to show error */}
         {error && <Alert severity="error">{error}</Alert>}
+        {isLoading && <CircularProgress />}
+
         <br />
         <Formik
           initialValues={initialValues}

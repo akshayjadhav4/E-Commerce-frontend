@@ -1,15 +1,18 @@
 .signin {
-    display: grid;
-    place-items: center;
-  }
-  
-  .MuiButton-containedPrimary {
-    color: #fff;
-    background-color: #f46d4f !important;
-  }
-  
-  .signin__link {
-    text-decoration: none;
-    color: #636363;
-  }
-  
+  display: grid;
+  place-items: center;
+}
+
+.MuiButton-containedPrimary {
+  color: #fff;
+  background-color: #f46d4f !important;
+}
+
+.signin__link {
+  text-decoration: none;
+  color: #636363;
+}
+
+.MuiCircularProgress-colorPrimary {
+  color: #636363 !important;
+}

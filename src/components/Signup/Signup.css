@@ -12,3 +12,7 @@
   text-decoration: none;
   color: #636363;
 }
+
+.MuiCircularProgress-colorPrimary {
+  color: #636363 !important;
+}
