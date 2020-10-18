@@ -10,6 +10,7 @@ import AddCategory from "../AddCategory/AddCategory";
 import ManageCategory from "../ManageCategory/ManageCategory";
 import AddProduct from "../AddProduct/AddProduct";
 import ManageProducts from "../ManageProducts/ManageProducts";
+import ManageOrders from "../ManageOrders/ManageOrders";
 function AdminDashboard() {
   const history = useHistory();
 
@@ -43,6 +44,9 @@ function AdminDashboard() {
           )}
           {history.location.pathname === "/admin/manage/prodcuts" && (
             <ManageProducts />
+          )}
+          {history.location.pathname === "/admin/manage/orders" && (
+            <ManageOrders />
           )}
         </div>
       </div>
