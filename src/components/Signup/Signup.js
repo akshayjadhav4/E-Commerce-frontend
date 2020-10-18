@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Signup.css";
 import BaseLayout from "../Base Layout/BaseLayout";
 import { Formik } from "formik";
@@ -13,7 +13,7 @@ import {
   signup,
   selectAuthentication,
 } from "../../features/authentication/authenticationSlice";
-import { selectError } from "../../features/error/errorSlice";
+import { selectError, clearError } from "../../features/error/errorSlice";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -68,6 +68,9 @@ function Signup() {
     }
   };
 
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
   return (
     <BaseLayout title="Create an account">
       <div className="signup">

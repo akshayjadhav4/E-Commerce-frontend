@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Signin.css";
 import BaseLayout from "../Base Layout/BaseLayout";
 import { Formik } from "formik";
@@ -13,7 +13,7 @@ import {
   signin,
   selectAuthentication,
 } from "../../features/authentication/authenticationSlice";
-import { selectError } from "../../features/error/errorSlice";
+import { selectError, clearError } from "../../features/error/errorSlice";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -58,6 +58,10 @@ function Signin() {
       }
     }
   };
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
 
   return (
     <BaseLayout title="Sign In">
