@@ -107,6 +107,34 @@ export const getAllOrders = (userID, token) => async (dispatch) => {
     );
 };
 
+export const updateOrderStatus = (orderID, status, userID, token) => async (
+  dispatch
+) => {
+  dispatch(setLoading());
+  await fetch(`${API}/order/status/${orderID}/${userID}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status }),
+  })
+    .then((reponse) => {
+      return reponse.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+      } else {
+        alert(data.message);
+        dispatch(clearError());
+        dispatch(getAllOrders(userID, token));
+      }
+    })
+    .catch((err) => dispatch(setError("ERROR IN UPDATING ORDER STATUS")));
+};
+
 export const selectOrders = (state) => state.order;
 
 export default orderSlice.reducer;
