@@ -18,6 +18,9 @@ export const categoriesSlice = createSlice({
       state.isLoading = true;
       state.message = "";
     },
+    clearCategoriesMessage: (state) => {
+      state.message = "";
+    },
     addCategory: (state, action) => {
       state.categories = [action.payload, ...state.categories];
       state.isLoading = false;
@@ -47,6 +50,7 @@ export const {
   addCategory,
   removeCategory,
   updateCategoryList,
+  clearCategoriesMessage,
 } = categoriesSlice.actions;
 
 export const createCategory = (userID, token, category) => async (dispatch) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -14,8 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectCategories,
   createCategory,
+  clearCategoriesMessage,
 } from "../../features/category/categorySlice";
-import { selectError } from "../../features/error/errorSlice";
+import { selectError, clearError } from "../../features/error/errorSlice";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
 
 const initialValues = {
@@ -38,6 +39,12 @@ function AddCategory() {
     dispatch(createCategory(user._id, token, values));
     resetForm();
   };
+
+  useEffect(() => {
+    dispatch(clearError());
+    dispatch(clearCategoriesMessage());
+  }, [dispatch]);
+
   return (
     <div className="addCategory">
       <Typography variant="h4">Add Category</Typography>

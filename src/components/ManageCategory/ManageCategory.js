@@ -15,6 +15,7 @@ import {
   selectCategories,
   getCategories,
   deleteCategory,
+  clearCategoriesMessage,
 } from "../../features/category/categorySlice";
 import { selectAuthentication } from "../../features/authentication/authenticationSlice";
 import { selectError } from "../../features/error/errorSlice";
@@ -27,6 +28,7 @@ function ManageCategory() {
   const error = useSelector(selectError);
   useEffect(() => {
     dispatch(getCategories());
+    dispatch(clearCategoriesMessage());
   }, [dispatch]);
   return (
     <div className="manageCategory">
@@ -53,6 +55,9 @@ function ManageCategory() {
                 <IconButton
                   onClick={() => {
                     dispatch(deleteCategory(category._id, user._id, token));
+                    setTimeout(() => {
+                      dispatch(clearCategoriesMessage());
+                    }, 3000);
                   }}
                 >
                   <DeleteForeverIcon className="manageCategory__deleteIcon" />
