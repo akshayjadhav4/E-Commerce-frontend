@@ -81,6 +81,32 @@ export const getCustomerOrders = (userID, token) => async (dispatch) => {
     );
 };
 
+export const getAllOrders = (userID, token) => async (dispatch) => {
+  dispatch(setLoading());
+  await fetch(`${API}/order/all/${userID}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        dispatch(setError(data.error));
+      } else {
+        dispatch(setOrders(data));
+        dispatch(clearError());
+      }
+    })
+    .catch((error) =>
+      dispatch(setError("ERROR IN GETTING CUSTOMER ORDER FOR ADMIN "))
+    );
+};
+
 export const selectOrders = (state) => state.order;
 
 export default orderSlice.reducer;
