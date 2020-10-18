@@ -180,7 +180,7 @@ export const addReview = (userID, token, productID, review) => async (
         dispatch(clearError());
       }
     })
-    .catch((error) => dispatch(setError("ERROR WHILE CREATING PRODUCT")));
+    .catch((error) => dispatch(setError("ERROR WHILE ADDING REVIEW")));
 };
 
 export const selectProducts = (state) => state.products;
