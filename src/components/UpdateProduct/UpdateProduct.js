@@ -22,6 +22,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectProducts,
   updateProduct,
+  clearProductMessage,
 } from "../../features/products/productsSlice";
 import {
   getCategories,
@@ -73,6 +74,7 @@ function UpdateProduct() {
   //   getting categories for showing in dropdown menu
   useEffect(() => {
     dispatch(getCategories());
+    dispatch(clearProductMessage());
   }, [dispatch]);
 
   return (

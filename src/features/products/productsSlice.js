@@ -14,6 +14,9 @@ export const productsSlice = createSlice({
       state.isLoading = action.payload;
       state.productMessage = "";
     },
+    clearProductMessage: (state, action) => {
+      state.productMessage = "";
+    },
     addProductToList: (state, action) => {
       delete action.payload.photo;
       state.products = [action.payload, ...state.products];
@@ -43,6 +46,7 @@ export const {
   fetchProducts,
   removeProduct,
   updateProductFromList,
+  clearProductMessage,
 } = productsSlice.actions;
 
 export const createProduct = (userID, token, product) => async (dispatch) => {

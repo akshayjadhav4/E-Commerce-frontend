@@ -24,6 +24,7 @@ import { selectAuthentication } from "../../features/authentication/authenticati
 import {
   selectProducts,
   createProduct,
+  clearProductMessage,
 } from "../../features/products/productsSlice";
 
 const initialValues = {
@@ -67,6 +68,8 @@ function AddProduct() {
   //   getting categories for showing in dropdown menu
   useEffect(() => {
     dispatch(getCategories());
+    //clearing all prvious product related messages.
+    dispatch(clearProductMessage());
   }, [dispatch]);
 
   return (
