@@ -15,7 +15,13 @@ function ImageHelper({ product }) {
   const imageUrl = product
     ? `${API}/product/photo/${product._id}`
     : `https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`;
-  return <CardMedia className={classes.media} title="Title" image={imageUrl} />;
+  return (
+    <CardMedia
+      className={classes.media}
+      title={product?.name}
+      image={imageUrl}
+    />
+  );
 }
 
 export default ImageHelper;
