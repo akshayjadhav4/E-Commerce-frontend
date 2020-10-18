@@ -127,7 +127,7 @@ export const updateOrderStatus = (orderID, status, userID, token) => async (
       if (data.error) {
         dispatch(setError(data.error));
       } else {
-        alert(data.message);
+        alert("Status updated");
         dispatch(clearError());
         dispatch(getAllOrders(userID, token));
       }
