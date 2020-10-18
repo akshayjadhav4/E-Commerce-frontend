@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  CircularProgress,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { CssTextField } from "../CssTextField/CssTextField";
@@ -210,6 +211,7 @@ function AddProduct() {
                   >
                     Submit
                   </Button>
+                  {isLoading && <CircularProgress />}
                 </CardActions>
               </Card>
             </form>
