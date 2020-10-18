@@ -14,8 +14,8 @@ export const categoriesSlice = createSlice({
       state.categories = action.payload;
       state.isLoading = false;
     },
-    setLoading: (state) => {
-      state.isLoading = true;
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
       state.message = "";
     },
     clearCategoriesMessage: (state) => {
@@ -54,7 +54,7 @@ export const {
 } = categoriesSlice.actions;
 
 export const createCategory = (userID, token, category) => async (dispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   await fetch(`${API}/category/create/${userID}`, {
     //header info
     method: "POST",
@@ -71,6 +71,7 @@ export const createCategory = (userID, token, category) => async (dispatch) => {
     .then((data) => {
       if (data.error) {
         dispatch(setError(data.error));
+        dispatch(setLoading(false));
       } else {
         dispatch(addCategory(data));
         dispatch(clearError());
@@ -80,7 +81,7 @@ export const createCategory = (userID, token, category) => async (dispatch) => {
 };
 
 export const getCategories = () => async (dispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   await fetch(`${API}/categories`, {
     method: "GET",
   })
@@ -90,6 +91,7 @@ export const getCategories = () => async (dispatch) => {
     .then((data) => {
       if (data.error) {
         dispatch(setError(data.error));
+        dispatch(setLoading(false));
       } else {
         dispatch(setCategories(data));
         dispatch(clearError());
@@ -101,7 +103,7 @@ export const getCategories = () => async (dispatch) => {
 export const deleteCategory = (categoryID, userID, token) => async (
   dispatch
 ) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   await fetch(`${API}/category/delete/${categoryID}/${userID}`, {
     method: "DELETE",
     headers: {
@@ -115,6 +117,7 @@ export const deleteCategory = (categoryID, userID, token) => async (
     .then((data) => {
       if (data.error) {
         dispatch(setError(data.error));
+        dispatch(setLoading(false));
       } else {
         dispatch(removeCategory({ data: data.message, _id: categoryID }));
         dispatch(clearError());
@@ -126,7 +129,7 @@ export const deleteCategory = (categoryID, userID, token) => async (
 export const updateCategory = (categoryID, userID, token, category) => async (
   dispatch
 ) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   await fetch(`${API}/category/update/${categoryID}/${userID}`, {
     //header info
     method: "PUT",
@@ -143,6 +146,7 @@ export const updateCategory = (categoryID, userID, token, category) => async (
     .then((data) => {
       if (data.error) {
         dispatch(setError(data.error));
+        dispatch(setLoading(false));
       } else {
         dispatch(updateCategoryList(data));
         dispatch(clearError());
