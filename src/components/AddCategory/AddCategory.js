@@ -7,6 +7,7 @@ import {
   CardContent,
   CardActions,
   Button,
+  CircularProgress,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { CssTextField } from "../CssTextField/CssTextField";
@@ -95,6 +96,7 @@ function AddCategory() {
                   >
                     Submit
                   </Button>
+                  {isLoading && <CircularProgress />}
                 </CardActions>
               </Card>
             </form>
