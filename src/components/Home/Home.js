@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BaseLayout from "../Base Layout/BaseLayout";
 import ProductCard from "../ProductCard/ProductCard";
 import { Grid, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { useSelector } from "react-redux";
-import { selectError } from "../../features/error/errorSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectError, clearError } from "../../features/error/errorSlice";
 import { selectProducts } from "../../features/products/productsSlice";
 import { selectCart } from "../../features/cart/cartSlice";
 function Home() {
   const error = useSelector(selectError);
   const { products, isLoading } = useSelector(selectProducts);
   const { cartMessage } = useSelector(selectCart);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
 
   return (
     <BaseLayout title="Welcome To My Store">
