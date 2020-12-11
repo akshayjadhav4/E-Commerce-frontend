@@ -2,7 +2,7 @@
 
 ## Tech Stack:
 
-E-commerce website in **MERN** stack with the Redux toolkit. **JWT** used for authentication. The Braintree payment gateway is used for processing payments. The frontend is deployed on Netlify and the backend on Heroku.
+E-commerce website in **MERN** stack with the Redux toolkit. **JWT** used for authentication. The Braintree payment gateway is used for processing payments. Formik and Yup packages used for form validation. Material UI used for desgin. The frontend is deployed on Netlify and the backend on Heroku.
 
 <img align="left" width="28px" src="https://img.icons8.com/color/48/000000/mongodb.png"/>
 
