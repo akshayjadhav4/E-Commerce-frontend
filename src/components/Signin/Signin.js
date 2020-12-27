@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: "account@test.com",
+  password: "123456",
 };
 
 const validationSchema = Yup.object({
@@ -134,6 +134,7 @@ function Signin() {
             Create an account
           </Link>
         </Button>
+        <p>Login credentials already filled for test account(Customer).</p>
       </div>
       {performRedirect()}
     </BaseLayout>
